@@ -9,4 +9,4 @@ SECRET_KEY: secret
 DB_PASSWORD: user
 PROD: false
 DEBUG: false
-UPLOAD_FOLDER: '/home/oak/Projects/ardas/file_upload/upload_folder'
+UPLOAD_FOLDER: '/home/user/Documents/uploader/upload_folder'

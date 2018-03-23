@@ -3,6 +3,7 @@ import yaml
 import logging
 import json
 import re
+from datetime import datetime
 
 import asyncpg
 from asyncpgsa import pg, PG
@@ -139,8 +140,22 @@ def id_validator(request_id, model_name):
     valid_id = re.match('^[0-9]+$', request_id)
     if valid_id is None:
         raise web.HTTPNotFound(body=json.dumps(
-            {'error': '{model_name} with id={request_id} not found'.format(model_name=model_name,
-                                                                           request_id=request_id)}),
+            {'error': f'{model_name} with id={request_id} not found'}),
             content_type='application/json')
 
     return int(valid_id.string)
+
+def row_to_dict(row, model) -> dict:
+    result = dict(row)
+
+    for key, value in result.items():
+        if isinstance(value, datetime):
+            result[key] = str(value)
+
+    return result
+
+
+def many_row_to_dict(many_row, model) -> list:
+    result = [row_to_dict(row, model) for row in many_row]
+    return result
+
