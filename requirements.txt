@@ -1,0 +1,8 @@
+aiohttp
+aio-manager
+asyncpgsa
+pytest
+uvloop
+pyaml
+alembic
+psycopg2-binary
